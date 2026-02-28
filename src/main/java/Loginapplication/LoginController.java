@@ -1,109 +1,132 @@
 package Loginapplication;
 
-import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.util.Duration;
-import java.util.Optional;
+import javafx.stage.Stage;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.io.OutputStream;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class LoginController {
 
-    @FXML private VBox loginPanel, signupPanel; 
-    @FXML private Region bgShape;   
-    @FXML private TextField logUser, regName, regEmail, regMobile;
-    @FXML private PasswordField logPass, regPass;
+    // ✅ Login Fields
+    @FXML private TextField logUser;
+    @FXML private PasswordField logPass;
 
     @FXML
     public void initialize() {
-        // Signup ko invisible karke screen ke right side "Wait" pe rakho
-        signupPanel.setOpacity(0);
-        signupPanel.setVisible(false);
-        signupPanel.setTranslateX(400); // Pehle se hi thoda side mein
     }
 
-    // --- 1. SLIDE TO SIGNUP (The Smooth Way) ---
-    @FXML
-    private void switchToSignup() {
-        signupPanel.setVisible(true);
-        
-        // Login bahar jayega
-        TranslateTransition outLog = new TranslateTransition(Duration.millis(500), loginPanel);
-        outLog.setToX(-400);
-        FadeTransition fadeOutLog = new FadeTransition(Duration.millis(400), loginPanel);
-        fadeOutLog.setToValue(0);
-
-        // Signup andar aayega
-        TranslateTransition inReg = new TranslateTransition(Duration.millis(500), signupPanel);
-        inReg.setToX(0);
-        FadeTransition fadeInReg = new FadeTransition(Duration.millis(400), signupPanel);
-        fadeInReg.setToValue(1);
-
-        // Background Shape Rotation
-        RotateTransition rt = new RotateTransition(Duration.millis(600), bgShape);
-        rt.setFromAngle(bgShape.getRotate());
-        rt.setToAngle(-160);
-
-        ParallelTransition pt = new ParallelTransition(outLog, fadeOutLog, inReg, fadeInReg, rt);
-        pt.setOnFinished(e -> loginPanel.setVisible(false));
-        pt.play();
-    }
-
-    // --- 2. SLIDE BACK TO LOGIN ---
-    @FXML
-    private void switchToLogin() {
-        loginPanel.setVisible(true);
-        
-        TranslateTransition outReg = new TranslateTransition(Duration.millis(500), signupPanel);
-        outReg.setToX(400);
-        FadeTransition fadeOutReg = new FadeTransition(Duration.millis(400), signupPanel);
-        fadeOutReg.setToValue(0);
-
-        TranslateTransition inLog = new TranslateTransition(Duration.millis(500), loginPanel);
-        inLog.setToX(0);
-        FadeTransition fadeInLog = new FadeTransition(Duration.millis(400), loginPanel);
-        fadeInLog.setToValue(1);
-
-        RotateTransition rt = new RotateTransition(Duration.millis(600), bgShape);
-        rt.setFromAngle(bgShape.getRotate());
-        rt.setToAngle(10);   // SAME as FXML default
-
-        ParallelTransition pt = new ParallelTransition(outReg, fadeOutReg, inLog, fadeInLog, rt);
-        pt.setOnFinished(e -> signupPanel.setVisible(false));
-        pt.play();
-    }
-
-    // --- 3. ALL VALIDATIONS (Working) ---
+    // ================= LOGIN API =================
     @FXML
     private void handleLogin() {
-        if (logUser.getText().equals("admin") && logPass.getText().equals("123")) {
-            showAlert("Login Success", "System mein swagat hai, Bhai!");
-        } else {
-            showAlert("Login Failed", "Username/Password galat hai.");
-        }
-    }
 
-    @FXML
-    private void handleRegistration() {
-        if (regName.getText().isEmpty() || regMobile.getText().length() != 10) {
-            showAlert("Validation Error", "Mobile number 10 digit ka hona chahiye!");
-        } else {
-            showAlert("Success", "Account ban gaya! Ab login karo.");
-            switchToLogin();
-        }
-    }
+        try {
 
+            URL url = new URL(
+                    "http://localhost:8080/users?email="
+                            + logUser.getText().trim()
+            );
+
+            System.out.println(url);
+
+            HttpURLConnection conn =
+                    (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Content-Type", "application/json");
+
+            int statusCode = conn.getResponseCode();
+
+            if (statusCode == 200) {
+
+                BufferedReader br =
+                        new BufferedReader(
+                                new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder responseBuilder = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    responseBuilder.append(line);
+                }
+                String response = responseBuilder.toString();
+                System.out.println("API RESPONSE = " + response);
+
+                // ✅ json-server returns [] if user not found
+                JSONArray users = new JSONArray(response);
+
+            if (users.length() == 0) {
+                showAlert("Error", "User not found");
+            } else {
+
+                JSONObject user = users.getJSONObject(0);
+                String dbPassword = user.getString("password");
+
+                if (dbPassword.equals(logPass.getText().trim())) {
+
+                    showAlert("Success", "Login Successful");
+                    openDashboard();
+
+                } else {
+                    showAlert("Error", "Wrong Password");
+                }
+            }
+
+                        } else {
+                            showAlert("Error", "Server Error");
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        showAlert("Error", "Server not reachable");
+                    }
+                }
+        // ================= DASHBOARD =================
+        private void openDashboard() {
+
+            try {
+
+                Parent root =
+                        FXMLLoader.load(getClass()
+                                .getResource("/Dashboard.fxml"));
+
+                Stage stage =
+                        (Stage) logUser.getScene().getWindow();
+
+                stage.setScene(new Scene(root));
+                stage.setTitle("Dashboard");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    // ================= FORGOT PASSWORD =================
     @FXML
     private void showForgot() {
+
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText("Password Reset");
         dialog.setContentText("Email dalo:");
-        dialog.showAndWait().ifPresent(email -> showAlert("Sent", "Link bhej diya gaya hai."));
+
+        dialog.showAndWait()
+                .ifPresent(email ->
+                        showAlert("Sent", "Reset link sent"));
     }
 
+    // ================= ALERT =================
     private void showAlert(String title, String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        Alert alert =
+                new Alert(Alert.AlertType.INFORMATION);
+
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(msg);

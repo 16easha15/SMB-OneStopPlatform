@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<StackPane fx:id="mainStack" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Loginapplication.LoginController">
+<StackPane fx:id="mainStack" stylesheets="@Login.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Loginapplication.LoginController">
    <children>
       <AnchorPane fx:id="authWrapper" maxHeight="500.0" maxWidth="850.0" styleClass="auth-wrapper" style="-fx-overflow: hidden;">
          <children>
@@ -16,19 +16,6 @@
                   <PasswordField fx:id="logPass" promptText="Password" styleClass="field-wrapper" />
                   <Button onAction="#handleLogin" prefHeight="45.0" prefWidth="350.0" styleClass="submit-button" text="LOGIN" />
                   <Hyperlink onAction="#showForgot" text="Forgot Password?" style="-fx-text-fill: #00d4ff;" />
-                  <Button onAction="#switchToSignup" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Don't have an account? Sign Up" />
-               </children>
-            </VBox>
-
-            <VBox fx:id="signupPanel" layoutX="50.0" layoutY="60.0" prefWidth="350.0" spacing="20.0" translateX="500.0" opacity="0">
-               <children>
-                  <Label text="Register" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;" />
-                  <TextField fx:id="regName" promptText="Full Name" styleClass="field-wrapper" />
-                  <TextField fx:id="regEmail" promptText="Email" styleClass="field-wrapper" />
-                  <TextField fx:id="regMobile" promptText="Mobile Number" styleClass="field-wrapper" />
-                  <PasswordField fx:id="regPass" promptText="Password" styleClass="field-wrapper" />
-                  <Button onAction="#handleRegistration" prefHeight="45.0" prefWidth="350.0" styleClass="submit-button" text="REGISTER" />
-                  <Button onAction="#switchToLogin" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Already have an account? Sign In" />
                </children>
             </VBox>
          </children>

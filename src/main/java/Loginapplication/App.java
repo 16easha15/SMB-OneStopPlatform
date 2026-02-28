@@ -23,7 +23,7 @@ public class App extends Application {
         //scene.setFill(Color.TRANSPARENT);
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
 
-        primaryStage.setTitle("Modern Login UI");
+        primaryStage.setTitle("SMB-One Stop Platform");
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
