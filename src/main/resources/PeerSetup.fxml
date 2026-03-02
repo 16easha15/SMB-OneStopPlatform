@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="Loginapplication.PeerSetupController"
+           stylesheets="@Setup.css"
+           style="-fx-background-color:#1a1a2e;">
+
+    <VBox alignment="CENTER" spacing="40">
+
+        <Label text="Initializing Peer Node"
+               style="-fx-text-fill:white;
+                      -fx-font-size:28;
+                      -fx-font-weight:bold;"/>
+
+        <!-- STEP TRACKER -->
+        <HBox alignment="CENTER" spacing="15">
+
+            <StackPane fx:id="step1" styleClass="step-active">
+                <Label text="1" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/></StackPane>
+            <Region fx:id="line1" styleClass="step-line"/>
+
+            <StackPane fx:id="step2" styleClass="step-pending">
+                <Label text="2" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/>
+            </StackPane>
+            <Region fx:id="line2" styleClass="step-line"/>
+
+            <StackPane fx:id="step3" styleClass="step-pending">
+                <Label text="3" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/>
+            </StackPane>
+            <Region fx:id="line3" styleClass="step-line"/>
+
+            <StackPane fx:id="step4" styleClass="step-pending">
+                <Label text="4" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/>
+            </StackPane>
+            <Region fx:id="line4" styleClass="step-line"/>
+
+            <StackPane fx:id="step5" styleClass="step-pending">
+                <Label text="5" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/>
+            </StackPane>
+            <Region fx:id="line5" styleClass="step-line"/>
+
+            <StackPane fx:id="step6" styleClass="step-pending">
+                <Label text="6" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/>
+            </StackPane>
+            <Region fx:id="line6" styleClass="step-line"/>
+
+            <StackPane fx:id="step7" styleClass="step-pending">
+                <Label text="7" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/>
+            </StackPane>
+            <Region fx:id="line7" styleClass="step-line"/>
+
+            <StackPane fx:id="step8" styleClass="step-pending">
+               <Label text="8" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/>
+            </StackPane>
+            <Region fx:id="line8" styleClass="step-line"/>
+
+            <StackPane fx:id="step9" styleClass="step-pending">
+                <Label text="9" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/>
+            </StackPane>
+            <Region fx:id="line9" styleClass="step-line"/>
+
+            <StackPane fx:id="step10" styleClass="step-pending">
+                <Label text="10" style="-fx-text-fill:white; -fx-font-weight:bold; -fx-font-size:14;"/>
+            </StackPane>
+
+        </HBox>
+        <ProgressBar fx:id="mainProgressBar" 
+             progress="0.0" 
+             prefWidth="600" 
+             style="-fx-accent: #38bdf8;"/>
+
+        <Label fx:id="stageLabel"
+               text="Starting..."
+               style="-fx-text-fill:#00d4ff;
+                      -fx-font-size:18;"/>
+        <Label fx:id="progressPercent"
+       text="0%"
+       style="-fx-text-fill:white;
+              -fx-font-size:18px;
+              -fx-font-weight:bold;" />
+
+    </VBox>
+
+</StackPane>

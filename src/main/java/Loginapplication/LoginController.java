@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.OutputStream;
+import javafx.application.Platform;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -19,7 +20,7 @@ public class LoginController {
     // ✅ Login Fields
     @FXML private TextField logUser;
     @FXML private PasswordField logPass;
-
+    @FXML private Label stageLabel;
     @FXML
     public void initialize() {
     }
@@ -71,8 +72,8 @@ public class LoginController {
 
                 if (dbPassword.equals(logPass.getText().trim())) {
 
-                    showAlert("Success", "Login Successful");
-                    openDashboard();
+                    showAlert("Success", "Login Successful-->Setuping Peer Node");
+                    openPeerSetup();
 
                 } else {
                     showAlert("Error", "Wrong Password");
@@ -88,26 +89,56 @@ public class LoginController {
                         showAlert("Error", "Server not reachable");
                     }
                 }
-        // ================= DASHBOARD =================
-        private void openDashboard() {
+        // ================= PeerSetup =================
+        private void openPeerSetup() {
 
-            try {
+        try {
 
-                Parent root =
-                        FXMLLoader.load(getClass()
-                                .getResource("/Dashboard.fxml"));
+            Parent root =
+                    FXMLLoader.load(getClass()
+                            .getResource("/PeerSetup.fxml"));
 
-                Stage stage =
-                        (Stage) logUser.getScene().getWindow();
+            Stage stage =
+                    (Stage) logUser.getScene().getWindow();
 
-                stage.setScene(new Scene(root));
-                stage.setTitle("Dashboard");
+            Scene scene = new Scene(
+                    root,
+                    javafx.stage.Screen.getPrimary()
+                            .getVisualBounds().getWidth(),
+                    javafx.stage.Screen.getPrimary()
+                            .getVisualBounds().getHeight()
+            );
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            stage.setScene(scene);
+            stage.setMaximized(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
+    }
+        // ================= DASHBOARD =================
+        private void openDashboard(){
+            Platform.runLater(() -> {
+               try{
+            Parent root = FXMLLoader.load( getClass().getResource("/Dashboard.fxml"));
+            Stage stage =(Stage) stageLabel.getScene().getWindow();
+            Scene scene = new Scene(
+                    root,
+                    javafx.stage.Screen.getPrimary()
+                            .getVisualBounds().getWidth(),
+                    javafx.stage.Screen.getPrimary()
+                            .getVisualBounds().getHeight());
+            
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.setMaximized(true);
+            stage.centerOnScreen();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    });
+        }
+    
     // ================= FORGOT PASSWORD =================
     @FXML
     private void showForgot() {

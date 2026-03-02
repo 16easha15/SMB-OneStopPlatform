@@ -25,6 +25,7 @@ public class App extends Application {
 
         primaryStage.setTitle("SMB-One Stop Platform");
         primaryStage.setScene(scene);
+        
         primaryStage.setMaximized(true);
         primaryStage.show();
     }
@@ -33,3 +34,5 @@ public class App extends Application {
         launch(args);
     }
 }
+
+

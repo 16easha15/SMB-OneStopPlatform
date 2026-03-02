@@ -1,4 +1,8 @@
+Loginapplication\PeerSetupController.class
+Loginapplication\DashboardController.class
 Loginapplication\LoginController.class
 Loginapplication\App.class
 Loginapplication\SystemInfo.class
 module-info.class
+Loginapplication\PeerSetupController$1.class
+Loginapplication\SmartContractsController.class

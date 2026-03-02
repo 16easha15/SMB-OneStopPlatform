@@ -1,0 +1,55 @@
+/* ===== GLOBAL RESET AND BACKGROUND ===== */
+.root {
+    -fx-background-color: #1a1a2e; /* image_0.png ka background color */
+}
+
+/* ===== BASE STEP SHAPE (Puri tarah circle, no square) ===== */
+.step-active, .step-complete, .step-pending {
+    -fx-min-width: 42;
+    -fx-min-height: 42;
+    -fx-max-width: 42;
+    -fx-max-height: 42;
+    -fx-background-radius: 50; /* Sabhi ko circle banane ke liye */
+    -fx-border-radius: 50; /* Border ko bhi circle karne ke liye */
+}
+
+/* ===== COMPLETE STEP (image_0.png ki tarah solid green) ===== */
+.step-complete {
+    -fx-background-color: #34d399; /* Bright green from image_0.png completed steps */
+    -fx-effect: null; /* Completed step par glow nahi, solid look */
+}
+
+/* ===== ACTIVE STEP (Neon Glow aur specific gradient image_3.png jaise) ===== */
+.step-active {
+    /* image_3.png ke glow aur colors ke liye naya gradient */
+    -fx-background-color: linear-gradient(to right, #4ade80, #38bdf8); /* Bright Mint to Neon Blue */
+    
+    /* Neon glow effect from image_3.png (greenish glow) */
+    -fx-effect: dropshadow(gaussian, rgba(74, 222, 128, 0.9), 20, 0.7, 0, 0); 
+}
+
+/* ===== PENDING STEP (image_0.png jaise grey outline, clear background) ===== */
+.step-pending {
+    -fx-background-color: #2b2f4a; /* Dark background circle like in image_0.png */
+    -fx-border-color: #4b5563; /* Grey outline from image_0.png */
+    -fx-border-width: 2;
+    -fx-effect: null; /* Pending step par koi glow nahi */
+}
+
+/* ===== Middle Connecting Line Base (Fat aur correct color) ===== */
+.step-line {
+    -fx-pref-width: 50px; 
+    -fx-min-height: 8px; /* Pehle 4px tha, ab 'fat' 8px kiya hai image_0.png ke proportional proportions ke liye */
+    -fx-max-height: 8px;
+    -fx-background-color: #2b2f4a; /* Dark base color like in image_0.png pending areas */
+    -fx-background-radius: 4; /* Fat lines ke liye thoda radius */
+}
+
+/* ===== Active connecting line (Neon color with glow like image_3.png) ===== */
+.step-line-active {
+    /* image_3.png ki active lines ka neon teal color */
+    -fx-background-color: #38bdf8;
+    
+    /* Active connecting line ka cyan glow */
+    -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.7), 15, 0.5, 0, 0); 
+}

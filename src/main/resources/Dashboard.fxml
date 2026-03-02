@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    <StackPane xmlns:fx="http://javafx.com/fxml">
-    <Label text="Welcome to SMB Dashboard"
-           style="-fx-font-size:30"/>
-    </StackPane>
-</AnchorPane>
+<StackPane xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="Loginapplication.DashboardController"
+           stylesheets="@Dashboard.css"
+           styleClass="dashboard-root">
+    <!-- ===== Background Glow Particles ===== -->
+
+    <Circle fx:id="particle1"
+        radius="300"
+        fill="rgba(0,255,255,0.05)"
+        translateX="500"
+        translateY="-300"/>
+
+    <Circle fx:id="particle2"
+            radius="250"
+            fill="rgba(168,85,247,0.06)"
+            translateX="-450"
+            translateY="250"/>
+
+    <Circle fx:id="particle3"
+            radius="180"
+            fill="rgba(0,150,255,0.05)"
+            translateX="0"
+            translateY="350"/>
+
+    <Circle fx:id="particle4"
+            radius="150"
+            fill="rgba(255,0,255,0.04)"
+            translateX="-200"
+            translateY="-350"/>
+    <VBox alignment="CENTER" spacing="60">
+
+        <Label text="Dashboard"
+               style="-fx-text-fill: white;
+                      -fx-font-size: 32;
+                      -fx-font-weight: bold;"/>
+
+        <HBox alignment="CENTER" spacing="80">
+
+            <!-- SMART CONTRACT CARD -->
+            <VBox fx:id="cardSmartContract"
+                  onMouseClicked="#handleSmartContractClick"
+                  styleClass="glass-card"
+                  alignment="CENTER"
+                  spacing="20">
+
+                <Label text="📄"
+                       style="-fx-font-size: 48;"/>
+
+                <Label text="Smart Contracts"
+                       styleClass="card-title"/>
+
+                <Label text="Manage contract health, completion rate &amp; analytics"
+                       wrapText="true"
+                       styleClass="card-subtitle"/>
+
+            </VBox>
+
+            <!-- SUPPLY CHAIN CARD -->
+            <VBox fx:id="cardSupplyChain"
+                  styleClass="glass-card"
+                  alignment="CENTER"
+                  spacing="20">
+
+                <Label text="⛓️"
+                       style="-fx-font-size: 48;"/>
+
+                <Label text="Supply Chain"
+                       styleClass="card-title"/>
+
+                <Label text="Track logistics &amp; real-time asset movement"
+                       wrapText="true"
+                       styleClass="card-subtitle"/>
+
+            </VBox>
+            
+
+        </HBox>
+
+    </VBox>
+
+</StackPane>
