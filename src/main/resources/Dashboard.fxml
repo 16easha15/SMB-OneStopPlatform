@@ -9,7 +9,12 @@
            stylesheets="@Dashboard.css"
            styleClass="dashboard-root">
     <!-- ===== Background Glow Particles ===== -->
+    <HBox alignment="CENTER_RIGHT"
+      spacing="20"
+      prefHeight="60"
+      styleClass="top-bar">
 
+    </HBox>
     <Circle fx:id="particle1"
         radius="300"
         fill="rgba(0,255,255,0.05)"
@@ -33,12 +38,12 @@
             fill="rgba(255,0,255,0.04)"
             translateX="-200"
             translateY="-350"/>
+    
     <VBox alignment="CENTER" spacing="60">
 
-        <Label text="Dashboard"
-               style="-fx-text-fill: white;
-                      -fx-font-size: 32;
-                      -fx-font-weight: bold;"/>
+        <Label text="Command Center" styleClass="hero-title"/>
+        <Label text="Welcome back, Admin"
+           styleClass="hero-subtitle"/>
 
         <HBox alignment="CENTER" spacing="80">
 

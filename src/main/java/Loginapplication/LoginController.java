@@ -21,8 +21,11 @@ public class LoginController {
     @FXML private TextField logUser;
     @FXML private PasswordField logPass;
     @FXML private Label stageLabel;
+    @FXML private TextField visiblePass;
+    @FXML private Button toggleEye;
     @FXML
     public void initialize() {
+        addButtonHoverAnimation();
     }
 
     // ================= LOGIN API =================
@@ -72,8 +75,10 @@ public class LoginController {
 
                 if (dbPassword.equals(logPass.getText().trim())) {
 
-                    showAlert("Success", "Login Successful-->Setuping Peer Node");
-                    openPeerSetup();
+                    boolean confirmed = showAlert("Success", "Login Successful --> Setup Peer Node");
+                    if (confirmed) {
+                        openPeerSetup();
+                    }
 
                 } else {
                     showAlert("Error", "Wrong Password");
@@ -145,7 +150,7 @@ public class LoginController {
 
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText("Password Reset");
-        dialog.setContentText("Email dalo:");
+        dialog.setContentText("Email :");
 
         dialog.showAndWait()
                 .ifPresent(email ->
@@ -153,7 +158,7 @@ public class LoginController {
     }
 
     // ================= ALERT =================
-    private void showAlert(String title, String msg) {
+    private boolean showAlert(String title, String msg) {
 
         Alert alert =
                 new Alert(Alert.AlertType.INFORMATION);
@@ -161,6 +166,56 @@ public class LoginController {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(msg);
-        alert.showAndWait();
+        return alert.showAndWait().isPresent();
     }
+    @FXML
+private void togglePassword() {
+
+    if (visiblePass.isVisible()) {
+
+        logPass.setText(visiblePass.getText());
+
+        visiblePass.setVisible(false);
+        visiblePass.setManaged(false);
+
+        logPass.setVisible(true);
+        logPass.setManaged(true);
+
+        toggleEye.setText("👁");
+
+    } else {
+
+        visiblePass.setText(logPass.getText());
+
+        visiblePass.setVisible(true);
+        visiblePass.setManaged(true);
+
+        logPass.setVisible(false);
+        logPass.setManaged(false);
+
+        toggleEye.setText("🙈");
+    }
+}
+    @FXML private Button loginButton;
+
+private void addButtonHoverAnimation() {
+
+    loginButton.setOnMouseEntered(e -> {
+        loginButton.setStyle(
+            "-fx-background-color: linear-gradient(to right, #1c3b4d, #2a6f85);" +
+            "-fx-border-color: #00d4ff;" +
+            "-fx-border-width: 2;" +
+            "-fx-border-radius: 40;" +
+            "-fx-background-radius: 40;" +
+            "-fx-text-fill: white;" +
+            "-fx-font-size: 16px;" +
+            "-fx-font-weight: 600;"
+        );
+        
+    });
+
+    loginButton.setOnMouseExited(e -> {
+        loginButton.setStyle(null);
+    });
+}
 }

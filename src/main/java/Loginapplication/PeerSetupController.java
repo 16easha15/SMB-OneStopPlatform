@@ -2,17 +2,19 @@ package Loginapplication;
 
 import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 import javafx.concurrent.Task;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.fxml.*;
+import javafx.scene.*;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,6 +29,8 @@ public class PeerSetupController {
                           line6,line7,line8,line9;
     @FXML private Label stageLabel;
     @FXML private Label progressPercent;
+    @FXML private Canvas glassCanvas;
+    @FXML private Pane bgLayer;
     private ScaleTransition currentPulse;
     private final int TOTAL_STEPS = 10;
     private DoubleProperty progressValue =
@@ -43,6 +47,8 @@ public void initialize() {
     
     progressValue.addListener((obs, o, n) ->
             progressPercent.setText(String.format("%.0f%%", n.doubleValue() * 100)));
+     
+    startGlassBackground();
     startSetup();
 }
     // ================= MAIN SETUP =================
@@ -168,4 +174,71 @@ public void initialize() {
         }
     });
     }
+    
+    
+    private double offset = 0;
+
+private void startGlassBackground() {
+
+    GraphicsContext gc =
+            glassCanvas.getGraphicsContext2D();
+
+    // Auto resize
+    glassCanvas.widthProperty()
+            .bind(((StackPane)glassCanvas.getParent()).widthProperty());
+
+    glassCanvas.heightProperty()
+            .bind(((StackPane)glassCanvas.getParent()).heightProperty());
+
+    AnimationTimer timer = new AnimationTimer() {
+
+        @Override
+        public void handle(long now) {
+
+            double w = glassCanvas.getWidth();
+            double h = glassCanvas.getHeight();
+
+            offset += 0.003; // SPEED (smooth)
+
+            gc.clearRect(0,0,w,h);
+
+            // ===== LIGHT GLASS GRADIENT =====
+            LinearGradient gradient =
+                    new LinearGradient(
+                            Math.sin(offset),
+                            0,
+                            1,
+                            Math.cos(offset),
+                            true,
+                            CycleMethod.NO_CYCLE,
+
+                            new Stop[]{
+                                new Stop(0,
+                                    Color.web("#1e293b")),
+                                new Stop(0.4,
+                                    Color.web("#334155")),
+                                new Stop(0.7,
+                                    Color.web("#0ea5e9")),
+                                new Stop(1,
+                                    Color.web("#22d3ee"))
+                            });
+
+            gc.setGlobalAlpha(0.35); // LIGHT EFFECT
+            gc.setFill(gradient);
+            gc.fillRect(0,0,w,h);
+        }
+    };
+
+    timer.start();
+}
+public void setTheme(String cssFile){
+
+    Scene scene = bgLayer.getScene();
+
+    scene.getStylesheets().clear();
+
+    scene.getStylesheets().add(
+        getClass().getResource(cssFile).toExternalForm()
+    );
+}
 }

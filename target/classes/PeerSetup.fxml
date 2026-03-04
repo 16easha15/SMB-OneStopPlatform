@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="Loginapplication.PeerSetupController"
-           stylesheets="@Setup.css"
-           style="-fx-background-color:#1a1a2e;">
 
+
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Loginapplication.PeerSetupController" stylesheets="@Setup.css">
+        <!-- ✅ Animated Background -->
+        
+        <Canvas fx:id="glassCanvas"/>
     <VBox alignment="CENTER" spacing="40">
 
         <Label text="Initializing Peer Node"

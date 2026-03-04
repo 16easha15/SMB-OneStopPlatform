@@ -5,17 +5,49 @@
 
 <StackPane fx:id="mainStack" stylesheets="@Login.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Loginapplication.LoginController">
    <children>
-      <AnchorPane fx:id="authWrapper" maxHeight="500.0" maxWidth="850.0" styleClass="auth-wrapper" style="-fx-overflow: hidden;">
+      <AnchorPane fx:id="bgLayer" id="animatedLayer" maxHeight="500.0" maxWidth="850.0" styleClass="auth-wrapper" style="-fx-overflow: hidden;">
          <children>
-            <Region fx:id="bgShape" layoutX="425.0" prefHeight="500.0" prefWidth="850.0" styleClass="background-shape" rotate="10.0" />
-
+            <Region fx:id="bgShape" layoutX="520.0" prefHeight="550.0" prefWidth="750.0" rotate="10.0" styleClass="background-shape"/>
             <VBox fx:id="loginPanel" layoutX="50.0" layoutY="60.0" prefWidth="350.0" spacing="20.0">
                <children>
-                  <Label text="Login" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;" />
-                  <TextField fx:id="logUser" promptText="Username" styleClass="field-wrapper" />
-                  <PasswordField fx:id="logPass" promptText="Password" styleClass="field-wrapper" />
-                  <Button onAction="#handleLogin" prefHeight="45.0" prefWidth="350.0" styleClass="submit-button" text="LOGIN" />
-                  <Hyperlink onAction="#showForgot" text="Forgot Password?" style="-fx-text-fill: #00d4ff;" />
+                  <HBox alignment="CENTER">
+                        <Label text="Login" styleClass="login-title"/>
+                    </HBox>
+                  <VBox spacing="25">
+                    <!-- USERNAME FIELD -->
+                    <StackPane styleClass="input-wrapper">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="👤" styleClass="input-icon"/>
+                            <TextField fx:id="logUser"
+                                       promptText="Username"
+                                       styleClass="glass-input"/>
+                        </HBox>
+                    </StackPane>
+                    <!-- PASSWORD FIELD -->
+                    <StackPane styleClass="input-wrapper">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+
+                            <Label text="🔒" styleClass="input-icon"/>
+                             <!-- Hidden Password -->
+                            <PasswordField fx:id="logPass"
+                                           promptText="Password"
+                                           styleClass="glass-input"/>
+                            
+                            <!-- Visible Password -->
+                            <TextField fx:id="visiblePass"
+                                       promptText="Password"
+                                       styleClass="glass-input"
+                                       visible="false"
+                                       managed="false"/>
+                            <Button text="👁" alignment="CENTER_RIGHT"
+                                   fx:id="toggleEye"
+                                   onAction="#togglePassword"
+                                   styleClass="eye-icon"/>
+                        </HBox>
+                    </StackPane>
+                </VBox>
+                  <Button fx:id="loginButton" onAction="#handleLogin" prefHeight="45.0" prefWidth="350.0" styleClass="submit-button" text="LOGIN" alignment="CENTER" />
+                  <Hyperlink onAction="#showForgot" styleClass="forget-link" text="Forgot Password?" style="-fx-text-fill: #00d4ff;" />
                </children>
             </VBox>
          </children>

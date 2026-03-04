@@ -1,0 +1,5 @@
+.root{
+    -fx-glass-color: rgba(255,255,255,0.25);
+    -fx-bg-gradient:
+        linear-gradient(to bottom right,#f8fbff,#e6f0ff);
+}

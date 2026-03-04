@@ -1,8 +1,12 @@
 /* ===== GLOBAL RESET AND BACKGROUND ===== */
-.root {
-    -fx-background-color: #1a1a2e; /* image_0.png ka background color */
+.root{
+    -fx-background-color:
+        linear-gradient(
+            to bottom right,
+            #020617,
+            #0f172a,
+            #020617);
 }
-
 /* ===== BASE STEP SHAPE (Puri tarah circle, no square) ===== */
 .step-active, .step-complete, .step-pending {
     -fx-min-width: 42;
