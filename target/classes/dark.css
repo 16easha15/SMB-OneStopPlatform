@@ -1,8 +1,0 @@
-.root{
-    -fx-glass-color: rgba(40,40,40,0.35);
-    -fx-bg-gradient:
-        linear-gradient(to bottom right,#0f2027,#203a43);
-}
-#animatedLayer{
-    -fx-background-color: -fx-bg-gradient;
-}
