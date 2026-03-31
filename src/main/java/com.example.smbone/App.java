@@ -1,4 +1,4 @@
-package Loginapplication;
+package com.example.smbone;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

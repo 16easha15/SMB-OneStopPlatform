@@ -1,4 +1,4 @@
-package Loginapplication;
+package com.example.smbone.ui.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import javafx.application.Platform;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 
 public class LoginController {
 

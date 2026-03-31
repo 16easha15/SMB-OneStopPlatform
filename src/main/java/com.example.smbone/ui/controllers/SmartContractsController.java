@@ -1,4 +1,4 @@
-package Loginapplication;
+package com.example.smbone.ui.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;

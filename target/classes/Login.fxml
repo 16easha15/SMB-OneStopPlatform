@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<StackPane fx:id="mainStack" stylesheets="@Login.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Loginapplication.LoginController">
+<StackPane fx:id="mainStack" stylesheets="@Login.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.smbone.ui.controllers.LoginController">
    <children>
       <AnchorPane fx:id="bgLayer" id="animatedLayer" maxHeight="500.0" maxWidth="850.0" styleClass="auth-wrapper" style="-fx-overflow: hidden;">
          <children>

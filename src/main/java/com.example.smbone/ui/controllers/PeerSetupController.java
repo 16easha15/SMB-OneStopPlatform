@@ -1,4 +1,4 @@
-package Loginapplication;
+package com.example.smbone.ui.controllers;
 
 import javafx.animation.*;
 import javafx.application.Platform;

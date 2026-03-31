@@ -1,9 +1,8 @@
-Loginapplication\PeerSetupController.class
-Loginapplication\PeerSetupController$2.class
-Loginapplication\DashboardController.class
-Loginapplication\LoginController.class
-Loginapplication\App.class
+com\example\smbone\ui\controllers\PeerSetupController$2.class
+com\example\smbone\App.class
+com\example\smbone\ui\controllers\LoginController.class
 Loginapplication\SystemInfo.class
-module-info.class
-Loginapplication\PeerSetupController$1.class
-Loginapplication\SmartContractsController.class
+com\example\smbone\ui\controllers\PeerSetupController$1.class
+com\example\smbone\ui\controllers\DashboardController.class
+com\example\smbone\ui\controllers\SmartContractsController.class
+com\example\smbone\ui\controllers\PeerSetupController.class
