@@ -1,8 +1,14 @@
-com\example\smbone\ui\controllers\PeerSetupController$2.class
 com\example\smbone\App.class
 com\example\smbone\ui\controllers\LoginController.class
 Loginapplication\SystemInfo.class
+com\example\smbone\services\AuthService.class
 com\example\smbone\ui\controllers\PeerSetupController$1.class
 com\example\smbone\ui\controllers\DashboardController.class
-com\example\smbone\ui\controllers\SmartContractsController.class
+com\example\smbone\models\User.class
 com\example\smbone\ui\controllers\PeerSetupController.class
+com\example\smbone\ui\controllers\PeerSetupController$2.class
+com\example\smbone\services\PeerSetupService.class
+com\example\smbone\repositories\UserRespository.class
+com\example\smbone\DTOs\LoginRequestDTO.class
+com\example\smbone\ui\controllers\SmartContractsController.class
+com\example\smbone\DTOs\UserDTO.class

@@ -1,29 +1,38 @@
 package com.example.smbone.ui.controllers;
 
+import com.example.smbone.DTOs.LoginRequestDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.io.OutputStream;
+
 import javafx.application.Platform;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.reactive.function.client.WebClient;
 
 
 public class LoginController {
 
     // ✅ Login Fields
-    @FXML private TextField logUser;
-    @FXML private PasswordField logPass;
-    @FXML private Label stageLabel;
-    @FXML private TextField visiblePass;
-    @FXML private Button toggleEye;
+    @FXML
+    private TextField logUser;
+    @FXML
+    private PasswordField logPass;
+    @FXML
+    private Label stageLabel;
+    @FXML
+    private TextField visiblePass;
+    @FXML
+    private Button toggleEye;
+
     @FXML
     public void initialize() {
         addButtonHoverAnimation();
@@ -35,68 +44,42 @@ public class LoginController {
 
         try {
 
-            URL url = new URL(
-                    "http://localhost:8080/users?email="
-                            + logUser.getText().trim()
-            );
+            WebClient client = WebClient.create("http://localhost:8000");
 
-            System.out.println(url);
+            LoginRequestDTO request =
+                    new LoginRequestDTO(logUser.getText().trim(), logPass.getText().trim());
 
-            HttpURLConnection conn =
-                    (HttpURLConnection) url.openConnection();
+            ResponseEntity<String> response = client.post()
+                    .uri("/api/auth/login")
+                    .bodyValue(request)
+                    .retrieve()
+                    .toEntity(String.class)
+                    .block();
 
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Content-Type", "application/json");
+            System.out.println(response);
 
-            int statusCode = conn.getResponseCode();
+            if (response.getStatusCode().is2xxSuccessful()) {
 
-            if (statusCode == 200) {
-
-                BufferedReader br =
-                        new BufferedReader(
-                                new InputStreamReader(conn.getInputStream()));
-
-                StringBuilder responseBuilder = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    responseBuilder.append(line);
-                }
-                String response = responseBuilder.toString();
                 System.out.println("API RESPONSE = " + response);
-
-                // ✅ json-server returns [] if user not found
-                JSONArray users = new JSONArray(response);
-
-            if (users.length() == 0) {
-                showAlert("Error", "User not found");
-            } else {
-
-                JSONObject user = users.getJSONObject(0);
-                String dbPassword = user.getString("password");
-
-                if (dbPassword.equals(logPass.getText().trim())) {
-
-                    boolean confirmed = showAlert("Success", "Login Successful --> Setup Peer Node");
-                    if (confirmed) {
-                        openPeerSetup();
-                    }
-
-                } else {
-                    showAlert("Error", "Wrong Password");
+                boolean confirmed = showAlert("Success", "Login Successful --> Setup Peer Node");
+                if (confirmed) {
+                    openPeerSetup();
                 }
+
+            } else {
+                showAlert("Error", "Server Error");
             }
 
-                        } else {
-                            showAlert("Error", "Server Error");
-                        }
+        } catch (
+                Exception e) {
+            e.printStackTrace();
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        showAlert("Error", "Server not reachable");
-                    }
-                }
-        // ================= PeerSetup =================
-        private void openPeerSetup() {
+            showAlert("Error", "Server not reachable");
+        }
+    }
+
+    // ================= PeerSetup =================
+    private void openPeerSetup() {
 
         try {
 
@@ -122,29 +105,30 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-        // ================= DASHBOARD =================
-        private void openDashboard(){
-            Platform.runLater(() -> {
-               try{
-            Parent root = FXMLLoader.load( getClass().getResource("/Dashboard.fxml"));
-            Stage stage =(Stage) stageLabel.getScene().getWindow();
-            Scene scene = new Scene(
-                    root,
-                    javafx.stage.Screen.getPrimary()
-                            .getVisualBounds().getWidth(),
-                    javafx.stage.Screen.getPrimary()
-                            .getVisualBounds().getHeight());
-            
-            stage.setScene(scene);
-            stage.setFullScreen(false);
-            stage.setMaximized(true);
-            stage.centerOnScreen();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    });
-        }
-    
+
+    // ================= DASHBOARD =================
+    private void openDashboard() {
+        Platform.runLater(() -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
+                Stage stage = (Stage) stageLabel.getScene().getWindow();
+                Scene scene = new Scene(
+                        root,
+                        javafx.stage.Screen.getPrimary()
+                                .getVisualBounds().getWidth(),
+                        javafx.stage.Screen.getPrimary()
+                                .getVisualBounds().getHeight());
+
+                stage.setScene(scene);
+                stage.setFullScreen(false);
+                stage.setMaximized(true);
+                stage.centerOnScreen();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     // ================= FORGOT PASSWORD =================
     @FXML
     private void showForgot() {
@@ -169,54 +153,57 @@ public class LoginController {
         alert.setContentText(msg);
         return alert.showAndWait().isPresent();
     }
+
     @FXML
-private void togglePassword() {
+    private void togglePassword() {
 
-    if (visiblePass.isVisible()) {
+        if (visiblePass.isVisible()) {
 
-        logPass.setText(visiblePass.getText());
+            logPass.setText(visiblePass.getText());
 
-        visiblePass.setVisible(false);
-        visiblePass.setManaged(false);
+            visiblePass.setVisible(false);
+            visiblePass.setManaged(false);
 
-        logPass.setVisible(true);
-        logPass.setManaged(true);
+            logPass.setVisible(true);
+            logPass.setManaged(true);
 
-        toggleEye.setText("👁");
+            toggleEye.setText("👁");
 
-    } else {
+        } else {
 
-        visiblePass.setText(logPass.getText());
+            visiblePass.setText(logPass.getText());
 
-        visiblePass.setVisible(true);
-        visiblePass.setManaged(true);
+            visiblePass.setVisible(true);
+            visiblePass.setManaged(true);
 
-        logPass.setVisible(false);
-        logPass.setManaged(false);
+            logPass.setVisible(false);
+            logPass.setManaged(false);
 
-        toggleEye.setText("🙈");
+            toggleEye.setText("🙈");
+        }
     }
-}
-    @FXML private Button loginButton;
 
-private void addButtonHoverAnimation() {
+    @FXML
+    private Button loginButton;
 
-    loginButton.setOnMouseEntered(e -> {
-        loginButton.setStyle(
-            "-fx-background-color: linear-gradient(to right, #1c3b4d, #2a6f85);" +
-            "-fx-border-color: #00d4ff;" +
-            "-fx-border-width: 2;" +
-            "-fx-border-radius: 40;" +
-            "-fx-background-radius: 40;" +
-            "-fx-text-fill: white;" +
-            "-fx-font-size: 16px;" +
-            "-fx-font-weight: 600;"
-        );
-        
-    });
+    private void addButtonHoverAnimation() {
 
-    loginButton.setOnMouseExited(e -> {
-        loginButton.setStyle(null);
-    });
-}
+        loginButton.setOnMouseEntered(e -> {
+            loginButton.setStyle(
+                    "-fx-background-color: linear-gradient(to right, #1c3b4d, #2a6f85);" +
+                            "-fx-border-color: #00d4ff;" +
+                            "-fx-border-width: 2;" +
+                            "-fx-border-radius: 40;" +
+                            "-fx-background-radius: 40;" +
+                            "-fx-text-fill: white;" +
+                            "-fx-font-size: 16px;" +
+                            "-fx-font-weight: 600;"
+            );
+
+        });
+
+        loginButton.setOnMouseExited(e -> {
+            loginButton.setStyle(null);
+        });
+    }
 }

@@ -1,4 +1,10 @@
 C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\App.java
+C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\DTOs\LoginRequestDTO.java
+C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\DTOs\UserDTO.java
+C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\models\User.java
+C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\repositories\UserRespository.java
+C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\services\AuthService.java
+C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\services\PeerSetupService.java
 C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\ui\controllers\DashboardController.java
 C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\ui\controllers\LoginController.java
 C:\Projects\College Projects\smb-one-desktop\src\main\java\com.example.smbone\ui\controllers\PeerSetupController.java
