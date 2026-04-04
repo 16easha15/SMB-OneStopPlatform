@@ -1,5 +1,6 @@
 package com.example.smbone.services.blockchain;
 
+import com.example.smbone.DTOs.BlockchainStatus;
 import com.example.smbone.models.FabricUser;
 import org.hyperledger.fabric.sdk.Enrollment;
 
@@ -7,10 +8,30 @@ import java.io.File;
 
 public class BlockChainSetupService {
 
+    private final BlockchainStateService stateService = new BlockchainStateService();
+
     public void setupBlockchain(String businessId) throws Exception {
 
-        if (orgExists()) {
+        BlockchainStatus status = stateService.getStatus(businessId);
+
+        stateService.printDebugReport(businessId);
+
+        if (!status.isEnvironmentReady()) {
+            EnvironmentService.prepareEnvironment();
+
+            status = stateService.getStatus(businessId); // refresh
+        }
+
+        if (status.isPeerRunning()) {
+            System.out.println("Peer already running");
+            return;
+        }
+
+        if (stateService.isPeerCryptoReady(businessId) && stateService.isDockerComposeReady() && !status.isPeerRunning()) {
+            System.out.println("Resuming peer startup");
+
             DockerService.startPeer();
+
             return;
         }
 
@@ -28,7 +49,9 @@ public class BlockChainSetupService {
         Enrollment adminEnrollment = caService.enrollOrgAdmin(businessId + "_admin", adminSecret);
 
         // Step 4 store wallet
-        WalletService.storeIdentity(businessId + "_admin", adminEnrollment, businessId + "MSP");
+        if (!status.isWalletPresent()) {
+            WalletService.storeIdentity(businessId + "_admin", adminEnrollment, businessId + "MSP");
+        }
 
         // Step 5 register peer
         String peerSecret = caService.registerPeer(businessId, smbAdmin);

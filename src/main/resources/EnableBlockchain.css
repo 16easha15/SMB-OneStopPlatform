@@ -5,12 +5,12 @@
 
 /* Decorative glow */
 .glow-left {
-    -fx-background-color: radial-gradient(radius 100%, rgba(0,212,255,0.28), transparent);
+    -fx-background-color: radial-gradient(radius 100%, rgba(0, 212, 255, 0.28), transparent);
     -fx-background-radius: 300;
 }
 
 .glow-right {
-    -fx-background-color: radial-gradient(radius 100%, rgba(88,101,242,0.22), transparent);
+    -fx-background-color: radial-gradient(radius 100%, rgba(88, 101, 242, 0.22), transparent);
     -fx-background-radius: 300;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .sub-text {
-    -fx-text-fill: rgba(255,255,255,0.72);
+    -fx-text-fill: rgba(255, 255, 255, 0.72);
     -fx-font-size: 16px;
     -fx-line-spacing: 4px;
 }
@@ -40,12 +40,12 @@
 
 /* Premium Card */
 .premium-card {
-    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-background-color: rgba(255, 255, 255, 0.08);
     -fx-background-radius: 28;
-    -fx-border-color: rgba(255,255,255,0.16);
+    -fx-border-color: rgba(255, 255, 255, 0.16);
     -fx-border-width: 1.2;
     -fx-border-radius: 28;
-    -fx-effect: dropshadow(gaussian, rgba(0,212,255,0.18), 30, 0.3, 0, 8);
+    -fx-effect: dropshadow(gaussian, rgba(0, 212, 255, 0.18), 30, 0.3, 0, 8);
 }
 
 .card-title {
@@ -56,9 +56,9 @@
 
 /* Status box */
 .status-box {
-    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-background-color: rgba(255, 255, 255, 0.05);
     -fx-background-radius: 22;
-    -fx-border-color: rgba(255,255,255,0.10);
+    -fx-border-color: rgba(255, 255, 255, 0.10);
     -fx-border-radius: 22;
     -fx-padding: 28;
 }
@@ -93,7 +93,7 @@
 }
 
 .info-label {
-    -fx-text-fill: rgba(255,255,255,0.74);
+    -fx-text-fill: rgba(255, 255, 255, 0.74);
     -fx-font-size: 15px;
     -fx-line-spacing: 3px;
 }
@@ -106,7 +106,7 @@
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,212,255,0.35), 18, 0.3, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0, 212, 255, 0.35), 18, 0.3, 0, 5);
 }
 
 .enable-btn:hover {
@@ -119,6 +119,7 @@
     -fx-scale-x: 0.98;
     -fx-scale-y: 0.98;
 }
+
 .badge-active {
     -fx-background-color: rgba(34, 197, 94, 0.18);
     -fx-text-fill: #22c55e;

@@ -37,7 +37,7 @@ public class DockerService {
 
     public static void stopPeer() throws Exception {
         String base = MSPGeneratorService.getBasePath();
-        CommandExecuter.execute("docker compose up -d", MSPGeneratorService.getBasePath());
+        CommandExecuter.execute("docker compose down -d", MSPGeneratorService.getBasePath());
     }
 
     public static boolean isPeerRunning(String businessId) {
