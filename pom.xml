@@ -67,6 +67,20 @@
             <version>2.2.26</version>
         </dependency>
 
+        <!-- Source: https://mvnrepository.com/artifact/org.hyperledger.fabric/fabric-gateway-java -->
+        <dependency>
+            <groupId>org.hyperledger.fabric</groupId>
+            <artifactId>fabric-gateway-java</artifactId>
+            <version>2.2.9</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk18on</artifactId>
+            <version>1.78</version>
+        </dependency>
+
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk18on</artifactId>
