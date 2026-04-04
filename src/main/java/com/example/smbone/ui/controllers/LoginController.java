@@ -7,14 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import javafx.application.Platform;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -61,9 +54,9 @@ public class LoginController {
             if (response.getStatusCode().is2xxSuccessful()) {
 
                 System.out.println("API RESPONSE = " + response);
-                boolean confirmed = showAlert("Success", "Login Successful --> Setup Peer Node");
+                boolean confirmed = showAlert("Success", "Login Successful --> Enabling Blockchain");
                 if (confirmed) {
-                    openPeerSetup();
+                    openEnableBlockchain();
                 }
 
             } else {
@@ -129,6 +122,34 @@ public class LoginController {
         });
     }
 
+    // ================= ENABLE BLOCKCHAIN =================
+
+    private void openEnableBlockchain() {
+    try {
+        Parent root = FXMLLoader.load(getClass().getResource("/EnableBlockchain.fxml"));
+
+        Stage stage = (Stage) logUser.getScene().getWindow();
+
+        Scene scene = new Scene(
+                root,
+                javafx.stage.Screen.getPrimary().getVisualBounds().getWidth(),
+                javafx.stage.Screen.getPrimary().getVisualBounds().getHeight()
+        );
+
+        stage.setScene(scene);
+        stage.setMaximized(true);
+
+        // Smooth Fade In
+        javafx.animation.FadeTransition fade =
+                new javafx.animation.FadeTransition(javafx.util.Duration.millis(700), root);
+        fade.setFromValue(0);
+        fade.setToValue(1);
+        fade.play();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
     // ================= FORGOT PASSWORD =================
     @FXML
     private void showForgot() {

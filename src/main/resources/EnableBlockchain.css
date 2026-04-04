@@ -1,0 +1,131 @@
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom right, #070b16, #0d1324, #131b31);
+    -fx-font-family: "Segoe UI", "Poppins", sans-serif;
+}
+
+/* Decorative glow */
+.glow-left {
+    -fx-background-color: radial-gradient(radius 100%, rgba(0,212,255,0.28), transparent);
+    -fx-background-radius: 300;
+}
+
+.glow-right {
+    -fx-background-color: radial-gradient(radius 100%, rgba(88,101,242,0.22), transparent);
+    -fx-background-radius: 300;
+}
+
+/* Left Content */
+.main-title {
+    -fx-text-fill: white;
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+}
+
+.sub-text {
+    -fx-text-fill: rgba(255,255,255,0.72);
+    -fx-font-size: 16px;
+    -fx-line-spacing: 4px;
+}
+
+.chain-icon {
+    -fx-font-size: 24px;
+    -fx-text-fill: #00d4ff;
+}
+
+.feature-line {
+    -fx-text-fill: #d6e4ff;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+
+/* Premium Card */
+.premium-card {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-background-radius: 28;
+    -fx-border-color: rgba(255,255,255,0.16);
+    -fx-border-width: 1.2;
+    -fx-border-radius: 28;
+    -fx-effect: dropshadow(gaussian, rgba(0,212,255,0.18), 30, 0.3, 0, 8);
+}
+
+.card-title {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+/* Status box */
+.status-box {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-background-radius: 22;
+    -fx-border-color: rgba(255,255,255,0.10);
+    -fx-border-radius: 22;
+    -fx-padding: 28;
+}
+
+.status-label {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+}
+
+/* Badge */
+.badge-disabled {
+    -fx-background-color: rgba(255, 77, 109, 0.16);
+    -fx-border-color: rgba(255, 77, 109, 0.42);
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-text-fill: #ff6b81;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+}
+
+.badge-enabled {
+    -fx-background-color: rgba(0, 255, 170, 0.18);
+    -fx-border-color: rgba(0, 255, 170, 0.42);
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-text-fill: #00ffae;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+}
+
+.info-label {
+    -fx-text-fill: rgba(255,255,255,0.74);
+    -fx-font-size: 15px;
+    -fx-line-spacing: 3px;
+}
+
+/* Button */
+.enable-btn {
+    -fx-background-color: linear-gradient(to right, #00d4ff, #4facfe);
+    -fx-background-radius: 40;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,212,255,0.35), 18, 0.3, 0, 5);
+}
+
+.enable-btn:hover {
+    -fx-background-color: linear-gradient(to right, #12dbff, #67b8ff);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.enable-btn:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+.badge-active {
+    -fx-background-color: rgba(34, 197, 94, 0.18);
+    -fx-text-fill: #22c55e;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 30;
+    -fx-border-color: rgba(34, 197, 94, 0.45);
+    -fx-border-radius: 30;
+}

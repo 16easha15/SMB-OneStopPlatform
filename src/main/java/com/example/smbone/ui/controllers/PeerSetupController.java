@@ -6,6 +6,7 @@ import javafx.beans.property.*;
 import javafx.concurrent.Task;
 import javafx.fxml.*;
 import javafx.scene.*;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -16,6 +17,15 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import java.io.IOException;
+import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -69,10 +79,9 @@ public void initialize() {
             PeerSetupController.this.updateProgress(10);
             Thread.sleep(900);
             complete(step10, null);   // ✅ mark final step green
-            //open dashboard
-            Platform.runLater(() ->
-                    PeerSetupController.this.openDashboard());
-    return null;
+            // open dashboard smoothly
+            Platform.runLater(() -> openDashboard());
+            return null;
     }
     };
         new Thread(task).start();
@@ -152,28 +161,43 @@ public void initialize() {
     private void openDashboard() {
     Platform.runLater(() -> {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
-            Stage stage = (Stage) step1.getScene().getWindow();
-            
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            Stage stage = (Stage) stageLabel.getScene().getWindow();
+            Scene currentScene = stage.getScene();
+            Parent currentRoot = currentScene.getRoot();
 
-            // ✅ FullScreen hata kar sirf Maximized rakhein
-            stage.setFullScreen(false); 
-            stage.setMaximized(true);
-            
-            // Ye ensure karega ki window taskbar ke upar na chadh jaye
-            Screen screen = Screen.getPrimary();
-            stage.setX(screen.getVisualBounds().getMinX());
-            stage.setY(screen.getVisualBounds().getMinY());
-            stage.setWidth(screen.getVisualBounds().getWidth());
-            stage.setHeight(screen.getVisualBounds().getHeight());
+            // Fade Out current screen
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentRoot);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> {
+                try {
+                    Parent dashboardRoot = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
+                    dashboardRoot.setOpacity(0);
+
+                    currentScene.setRoot(dashboardRoot);
+
+                    // Fade In new screen
+                    FadeTransition fadeIn = new FadeTransition(Duration.millis(700), dashboardRoot);
+                    fadeIn.setFromValue(0.0);
+                    fadeIn.setToValue(1.0);
+                    fadeIn.play();
+
+                    stage.setTitle("Dashboard");
+                    stage.setMaximized(true);
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            fadeOut.play();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     });
-    }
+}
     
     
     private double offset = 0;

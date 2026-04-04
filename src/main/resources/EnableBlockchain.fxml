@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/23"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.smbone.ui.controllers.EnableBlockchainController"
+           stylesheets="@EnableBlockchain.css"
+           styleClass="root-pane">
+
+    <children>
+
+        <!-- Background decorative glow -->
+        <Region layoutX="80" layoutY="80" prefHeight="220" prefWidth="220" styleClass="glow-left"/>
+        <Region layoutX="1050" layoutY="500" prefHeight="260" prefWidth="260" styleClass="glow-right"/>
+
+        <!-- Main Layout -->
+        <AnchorPane prefWidth="1200" prefHeight="720">
+
+            <children>
+
+                <!-- Left side content -->
+                <VBox layoutX="90" layoutY="130" spacing="22" prefWidth="470">
+                    <children>
+
+                        <Label text="Enable Blockchain"
+                               styleClass="main-title"/>
+
+                        <Label text="Secure your SMB ecosystem with a trusted blockchain layer for transparency, node trust, and tamper-proof operations."
+                               wrapText="true"
+                               prefWidth="440"
+                               styleClass="sub-text"/>
+
+                        <HBox spacing="14" alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="⛓" styleClass="chain-icon"/>
+                                <Label text="Decentralized • Secure • Verified"
+                                       styleClass="feature-line"/>
+                            </children>
+                        </HBox>
+
+                    </children>
+                </VBox>
+
+                <!-- Right premium card -->
+                <VBox layoutX="650" layoutY="105"
+                      prefWidth="400" prefHeight="500"
+                      alignment="TOP_CENTER"
+                      spacing="28"
+                      styleClass="premium-card">
+
+                    <padding>
+                        <Insets top="35" right="35" bottom="35" left="35"/>
+                    </padding>
+
+                    <children>
+
+                        <Label text="Blockchain Node"
+                               styleClass="card-title"/>
+
+                        <!-- Status Box -->
+                        <VBox spacing="18" alignment="CENTER" styleClass="status-box" prefWidth="320">
+                            <children>
+                                <Label fx:id="statusLabel"
+                                       text="Blockchain Status: Disabled"
+                                       styleClass="status-label"/>
+
+                                <Label fx:id="badgeLabel"
+                                       text="INACTIVE"
+                                       styleClass="badge-disabled"/>
+                            </children>
+                        </VBox>
+
+                        <!-- Info text -->
+                        <Label text="By enabling blockchain, your peer environment will be initialized and secured for trusted network participation."
+                               wrapText="true"
+                               textAlignment="CENTER"
+                               prefWidth="310"
+                               styleClass="info-label"/>
+
+                        <!-- Main Button -->
+                        <Button fx:id="enableBtn"
+                                text="Enable Blockchain"
+                                onAction="#handleEnableBlockchain"
+                                prefWidth="260"
+                                prefHeight="48"
+                                styleClass="enable-btn"/>
+
+                    </children>
+                </VBox>
+
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

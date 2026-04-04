@@ -5,7 +5,7 @@
 
 
 
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="Loginapplication.PeerSetupController" stylesheets="@Setup.css">
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.smbone.ui.controllers.PeerSetupController" stylesheets="@Setup.css">
         <!-- ✅ Animated Background -->
         
         <Canvas fx:id="glassCanvas"/>

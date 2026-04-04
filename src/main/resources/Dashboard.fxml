@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.Circle?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="Loginapplication.DashboardController"
+           fx:controller="com.example.smbone.ui.controllers.DashboardController"
            stylesheets="@Dashboard.css"
            styleClass="dashboard-root">
     <!-- ===== Background Glow Particles ===== -->
